@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#101c22" />
+  <title>Frontier — Shape the world</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Frontier home"><span class="brand-mark">F</span><span>FRONTIER<span class="brand-dot">.</span></span></a>
+      <div class="season"><span class="live-dot"></span><span>SEASON 01</span><b>·</b><span id="turnLabel">DAY 01</span></div>
+      <button class="icon-button" id="soundButton" aria-label="Toggle sound" title="Toggle sound">♪</button>
+    </header>
+
+    <section class="game-layout">
+      <section class="map-column">
+        <div class="map-heading">
+          <div><p class="eyebrow">THE CONTINENT OF</p><h1>Verdant Reach</h1></div>
+          <div class="map-coords">NORTH<br><span>43° 18′ N</span></div>
+        </div>
+        <div class="map-frame" id="mapFrame">
+          <canvas id="gameCanvas" aria-label="Interactive strategy map"></canvas>
+          <div class="map-topline"><span class="map-tag"><i></i> LIVE MAP</span><span class="map-hint">TAP A TILE TO SELECT</span></div>
+          <div class="map-bottomline"><span>◈ &nbsp; VERDANT BASIN</span><span id="mapStatus">BORDERS ARE OPEN</span></div>
+          <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        </div>
+        <div class="legend">
+          <span><i class="legend-swatch you"></i>Your territory</span>
+          <span><i class="legend-swatch rival"></i>Redhaven</span>
+          <span><i class="legend-swatch wild"></i>Unclaimed</span>
+          <span><i class="legend-swatch city"></i>City</span>
+        </div>
+      </section>
+
+      <aside class="command-column">
+        <section class="objective-card">
+          <div class="objective-head"><span class="eyebrow">YOUR OBJECTIVE</span><span class="target-chip">80%</span></div>
+          <div class="objective-title">Unite the<br>continent<span>.</span></div>
+          <p>Claim the land. Build your influence. Leave no border behind.</p>
+          <div class="progress-meta"><span>LAND CONTROLLED</span><b id="percentLabel">8%</b></div>
+          <div class="progress-track"><div class="progress-fill" id="progressFill"></div><i class="goal-marker"></i></div>
+          <div class="progress-foot"><span id="landCount">6 / 75 tiles</span><span>80% TO WIN</span></div>
+        </section>
+
+        <section class="resources-card">
+          <div class="section-label"><span>YOUR RESOURCES</span><span class="income-label" id="incomeLabel">+8 / DAY</span></div>
+          <div class="resource-row">
+            <div class="resource-icon coin-icon">¢</div><div class="resource-info"><b id="coinCount">48</b><span>SUPPLY</span></div>
+            <div class="resource-divider"></div>
+            <div class="resource-icon troop-icon">✦</div><div class="resource-info"><b id="armyCount">9</b><span>ARMY</span></div>
+            <div class="resource-divider"></div>
+            <div class="resource-icon nuke-icon">✳</div><div class="resource-info"><b id="nukeCount">1</b><span>WARHEAD</span></div>
+          </div>
+        </section>
+
+        <section class="action-card">
+          <div class="section-label"><span>COMMAND</span><span class="command-helper" id="commandHelper">SELECT A TILE</span></div>
+          <div class="action-list">
+            <button class="action-button active" data-action="expand"><span class="action-icon expand-icon">↗</span><span class="action-copy"><b>Expand borders</b><small>Claim an adjacent tile</small></span><span class="action-cost">12 ¢</span></button>
+            <button class="action-button" data-action="city"><span class="action-icon city-icon">⌂</span><span class="action-copy"><b>Found a city</b><small>Boost your daily supply</small></span><span class="action-cost">35 ¢</span></button>
+            <button class="action-button" data-action="attack"><span class="action-icon attack-icon">⚔</span><span class="action-copy"><b>Launch an attack</b><small>Take an enemy tile</small></span><span class="action-cost">8 ¢</span></button>
+            <button class="action-button nuke-action" data-action="nuke"><span class="action-icon nuke-action-icon">✳</span><span class="action-copy"><b>Deploy warhead</b><small>Strike a 3 × 3 area</small></span><span class="action-cost">1 ✳</span></button>
+          </div>
+        </section>
+
+        <section class="selection-card" id="selectionCard">
+          <div class="selection-pin">⌖</div><div><span class="eyebrow">SELECTED TILE</span><b id="selectionTitle">No tile selected</b><small id="selectionDetail">Choose a tile on the map to issue commands.</small></div>
+        </section>
+        <div class="turn-footer"><span><i class="live-dot"></i> AUTOPLAY ON</span><button id="endTurnButton">END DAY <b>↗</b></button></div>
+      </aside>
+    </section>
+    <footer class="site-footer"><span>FRONTIER <b>·</b> A GAME OF GROWTH & GRIT</span><span>MADE FOR THE BOLD</span></footer>
+  </main>
+  <div class="modal-backdrop hidden" id="resultModal">
+    <div class="result-modal"><div class="result-emblem" id="resultEmblem">✦</div><p class="eyebrow" id="resultEyebrow">THE CONTINENT IS YOURS</p><h2 id="resultTitle">A new age begins.</h2><p id="resultMessage">You united the land under one banner.</p><button id="restartButton">PLAY AGAIN <span>↗</span></button></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
